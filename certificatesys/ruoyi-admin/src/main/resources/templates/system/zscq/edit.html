@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="include :: header('修改软件著作权证书')" />
+    <th:block th:include="include :: bootstrap-fileinput-css"/>
+</head>
+<body class="white-bg">
+<div class="wrapper wrapper-content animated fadeInRight ibox-content" th:object="${zscq}">
+    <div id="photo-div" class="form-horizontal m"><img th:src="*{photo}" style="width: 400px;height: 560px" ></div>
+    <div  id="form-div" class="form-horizontal m">
+        <form  id="form-zscq-edit" >
+            <input name="id" th:field="*{id}" type="hidden">
+            <!--<div class="form-group">
+                <label class="col-sm-3 control-label is-required">名称：</label>
+                <div class="col-sm-8">
+                    <input name="name" th:field="*{name}" class="form-control" type="text" required>
+                </div>
+            </div>-->
+            <div class="form-group">
+                <label class="col-sm-3 control-label">证书号：</label>
+                <div class="col-sm-8">
+                    <input name="cardId" th:field="*{cardId}" class="form-control" type="text" id="edit-input">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">软件名称：</label>
+                <div class="col-sm-8">
+                    <input name="softwareName" th:field="*{softwareName}" class="form-control" type="text" id="edit-input">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">著作权人：</label>
+                <div class="col-sm-8">
+                    <input name="companyName" th:field="*{companyName}" class="form-control" type="text" id="edit-input">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">开发完成日期：</label>
+                <div class="col-sm-8">
+                    <input name="firstDate" th:field="*{startDate}" class="form-control" type="text" id="edit-input">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">首次发表日期：</label>
+                <div class="col-sm-8">
+                    <input name="firstDate" th:field="*{firstDate}" class="form-control" type="text" id="edit-input">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">权利取得方式：</label>
+                <div class="col-sm-8">
+                    <input name="getWay" th:field="*{getWay}" class="form-control" type="text" id="edit-input">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">权利范围：</label>
+                <div class="col-sm-8">
+                    <input name="wayScope" th:field="*{wayScope}" class="form-control" type="text" id="edit-input">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">登记号：</label>
+                <div class="col-sm-8">
+                    <input name="registNum" th:field="*{registNum}" class="form-control" type="text" id="edit-input">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">序列号：</label>
+                <div class="col-sm-8">
+                    <input name="num" th:field="*{num}" class="form-control" type="text" id="edit-input">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">证书时间：</label>
+                <div class="col-sm-8">
+                    <input name="cardDate" th:field="*{cardDate}" class="form-control" type="text" id="edit-input">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<th:block th:include="include :: footer" />
+<th:block th:include="include :: bootstrap-fileinput-js"/>
+<script th:inline="javascript">
+    var prefix = ctx + "system/zscq";
+    $("#form-zscq-edit").validate({
+        focusCleanup: true
+    });
+
+    function submitHandler() {
+        if ($.validate.form()) {
+            $.operate.save(prefix + "/edit", $('#form-zscq-edit').serialize());
+        }
+    }
+</script>
+</body>
+</html>

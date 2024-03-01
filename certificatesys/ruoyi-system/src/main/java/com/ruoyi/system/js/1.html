@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html  lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+ 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+</head>
+<body >
+
+</div>
+<script th:inline="javascript">
+
+    // 1. In JavaScript, write a function that will find the most frequent and least frequent letter count (case insensitive) in a given string and return an array of objects that contains that information.  For example, passing “JavaLava” and we will get back [{a: 4}, {j: 1}, {l: 1}].
+	<!--max-num and min-num strings where console.log-->
+    var str = "aabbbbbccccccccccdd";
+    var arr = str.split("");
+    var obj = {};
+    for(var i = 0; i<arr.length; i++){
+        if(!obj[arr[i]]){
+            obj[arr[i]] = 1;
+        }else {
+            obj[arr[i]]++;
+        }
+    }
+    var maxNum = 0;
+    var minNum = obj[arr[0]];
+    var maxEleArr = [],minEleArr = [];
+    for(var key in obj){
+        if(obj[key] > maxNum){
+            maxNum = obj[key];
+        }
+        if(obj[key] < maxNum){
+            minNum = obj[key];
+        }
+    }
+    for(var key in obj){
+        if(obj[key] == maxNum){
+            maxEleArr.push(key);
+        }
+        if(obj[key] == minNum){
+            minEleArr.push(key);
+        }
+    }
+    console.log(maxEleArr + ":" + maxNum );
+    console.log(minEleArr + ":" + minNum );
+
+</script>
+</body>
+</html>

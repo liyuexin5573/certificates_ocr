@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.WgsjMapper">
+
+    <resultMap type="Wgsj" id="WgsjResult">
+        <result property="id"    column="id"    />
+        <result property="photo"    column="photo"    />
+        <result property="cardId"    column="card_id"    />
+        <result property="inventName"    column="invent_name"    />
+        <result property="authorName"    column="author_name"    />
+        <result property="zlNum"    column="zl_num"    />
+        <result property="applyDate"    column="apply_date"    />
+        <result property="ownerName"    column="owner_name"    />
+        <result property="address"    column="address"    />
+        <result property="grantDate"    column="grant_date"    />
+        <result property="grantNum"    column="grant_num"    />
+        <result property="createUser"    column="create_user"    />
+        <result property="createDate"    column="create_date"    />
+    </resultMap>
+
+    <sql id="selectWgsjVo">
+        select id, photo, card_id, invent_name, author_name, zl_num, apply_date, owner_name, address, grant_date, grant_num, create_user, create_date from wgsj
+    </sql>
+
+    <select id="selectWgsjList" parameterType="Wgsj2" resultMap="WgsjResult">
+        <include refid="selectWgsjVo"/>
+        <where>
+            <if test="photo != null  and photo != ''"> and photo = #{photo}</if>
+            <if test="cardId != null  and cardId != ''"> and SUBSTRING(card_id,2,LENGTH(card_id)-6) = #{cardId}</if>
+            <if test="inventName != null  and inventName != ''"> and invent_name like concat('%', #{inventName}, '%')</if>
+            <if test="authorName != null  and authorName != ''"> and author_name like concat('%', #{authorName}, '%')</if>
+            <if test="zlNum != null  and zlNum != ''"> and zl_num = #{zlNum}</if>
+            <if test="applyDate != null  and applyDate != ''"> and apply_date = #{applyDate}</if>
+            <if test="ownerName != null  and ownerName != ''"> and owner_name = #{ownerName}</if>
+            <if test="address != null  and address != ''"> and address = #{address}</if>
+            <if test="grantDate != null  and grantDate != ''"> and grant_date = #{grantDate}</if>
+            <if test="grantNum != null  and grantNum != ''"> and grant_num = #{grantNum}</if>
+            <if test="createUser != null  and createUser != ''"> and create_user = #{createUser}</if>
+            <if test="createDate != null "> and DATE_FORMAT(create_date, '%Y-%m-%d') = #{createDate}</if>
+        </where>
+    </select>
+
+    <select id="selectWgsjById" parameterType="Long" resultMap="WgsjResult">
+        <include refid="selectWgsjVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertWgsj" parameterType="Wgsj" useGeneratedKeys="true" keyProperty="id">
+        insert into wgsj
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="photo != null and photo != ''">photo,</if>
+            <if test="cardId != null">card_id,</if>
+            <if test="inventName != null">invent_name,</if>
+            <if test="authorName != null">author_name,</if>
+            <if test="zlNum != null">zl_num,</if>
+            <if test="applyDate != null">apply_date,</if>
+            <if test="ownerName != null">owner_name,</if>
+            <if test="address != null">address,</if>
+            <if test="grantDate != null">grant_date,</if>
+            <if test="grantNum != null">grant_num,</if>
+            <if test="createUser != null">create_user,</if>
+            create_date
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="photo != null and photo != ''">#{photo},</if>
+            <if test="cardId != null">#{cardId},</if>
+            <if test="inventName != null">#{inventName},</if>
+            <if test="authorName != null">#{authorName},</if>
+            <if test="zlNum != null">#{zlNum},</if>
+            <if test="applyDate != null">#{applyDate},</if>
+            <if test="ownerName != null">#{ownerName},</if>
+            <if test="address != null">#{address},</if>
+            <if test="grantDate != null">#{grantDate},</if>
+            <if test="grantNum != null">#{grantNum},</if>
+            <if test="createUser != null">#{createUser},</if>
+            now()
+        </trim>
+    </insert>
+
+    <update id="updateWgsj" parameterType="Wgsj">
+        update wgsj
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="photo != null and photo != ''">photo = #{photo},</if>
+            <if test="cardId != null">card_id = #{cardId},</if>
+            <if test="inventName != null">invent_name = #{inventName},</if>
+            <if test="authorName != null">author_name = #{authorName},</if>
+            <if test="zlNum != null">zl_num = #{zlNum},</if>
+            <if test="applyDate != null">apply_date = #{applyDate},</if>
+            <if test="ownerName != null">owner_name = #{ownerName},</if>
+            <if test="address != null">address = #{address},</if>
+            <if test="grantDate != null">grant_date = #{grantDate},</if>
+            <if test="grantNum != null">grant_num = #{grantNum},</if>
+            <if test="createUser != null">create_user = #{createUser},</if>
+            <if test="createDate != null">create_date = #{createDate},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteWgsjById" parameterType="Long">
+        delete from wgsj where id = #{id}
+    </delete>
+
+    <delete id="deleteWgsjByIds" parameterType="String">
+        delete from wgsj where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="data" resultType="HashMap">
+        select grant_Date grantDate,count(1) num from wgsj group by grant_date
+    </select>
+</mapper>

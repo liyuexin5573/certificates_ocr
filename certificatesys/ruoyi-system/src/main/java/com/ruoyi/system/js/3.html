@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html  lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+</head>
+<body >
+
+</div>
+<script th:inline="javascript">
+    var str1 = "3/(1+((1+1)*1))";
+    // var str1 = "3/(1+((1+1))*1))";
+    var data = str1.split("");
+    var temp="";
+    var temp2="";
+    for (let d of data){
+        if(d=="+"||d=="="||d=="*"||d=="/"||d=="("||d==")"||d=="["||d=="]"||d=="{"||d=="}"){
+            temp+=d;
+        }
+        if(d=="("||d==")"||d=="["||d=="]"||d=="{"||d=="}"){
+            temp2+=d;
+        }
+    }
+    console.log(temp)
+    console.log(temp2)
+
+    var result  =isValid(temp2);
+    console.log(result)
+    if (result==false){
+        //is false
+        console.log("over")
+    } else{
+        //is true
+        var result2 = eval(str1);
+        console.log(result2)
+    }
+
+
+
+    function isValid(s) {
+        const obj ={
+            "(":")",
+            "{":"}",
+            "[":"]"
+        }
+        let stack = [];
+        for(let i =0;i<s.length;i++){
+            if(s[i] in obj ){
+                stack.push(s[i])
+            }else if(s[i] !== obj[stack[stack.length - 1]]){
+                return false
+            }else{
+                stack.pop()
+            }
+        }
+        return stack.length === 0
+    };
+</script>
+</body>
+</html>
+
+
+<!--3. Write some Java codes to check if the parenthesizes are matched (valid), if it’s valid, calculate the result.-->
+<!--For example, 3 / {1 + [(1 + 1) * 1]} is valid and result is 1 while [1 + {1 ] / 2} is not.-->

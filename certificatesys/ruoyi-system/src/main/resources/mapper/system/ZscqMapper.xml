@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.ZscqMapper">
+    
+    <resultMap type="Zscq" id="ZscqResult">
+        <result property="id"    column="id"    />
+<!--        <result property="name"    column="name"    />-->
+        <result property="photo"    column="photo"    />
+        <result property="cardId"    column="card_id"    />
+        <result property="softwareName"    column="software_name"    />
+        <result property="companyName"    column="company_name"    />
+        <result property="startDate"    column="start_date"    />
+        <result property="firstDate"    column="first_date"    />
+        <result property="getWay"    column="get_way"    />
+        <result property="wayScope"    column="way_scope"    />
+        <result property="registNum"    column="regist_num"    />
+        <result property="num"    column="num"    />
+        <result property="cardDate"    column="card_date"    />
+        <result property="createUser"    column="create_user"    />
+        <result property="createDate"    column="create_date"    />
+    </resultMap>
+
+    <sql id="selectZscqVo">
+        select id,  photo, card_id, software_name, company_name, start_date, first_date, get_way, way_scope, regist_num, num, card_date, create_user, create_date from zscq
+    </sql>
+
+    <select id="selectZscqList" parameterType="Zscq2" resultMap="ZscqResult">
+        <include refid="selectZscqVo"/>
+        <where>  
+<!--            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>-->
+            <if test="photo != null  and photo != ''"> and photo = #{photo}</if>
+            <if test="cardId != null  and cardId != ''"> and SUBSTRING(card_id,6,LENGTH(card_id)-18) = #{cardId}</if>
+            <if test="softwareName != null  and softwareName != ''"> and software_name like concat('%', #{softwareName}, '%')</if>
+            <if test="companyName != null  and companyName != ''"> and company_name like concat('%', #{companyName}, '%')</if>
+            <if test="startDate != null  and startDate != ''"> and start_date= #{startDate}</if>
+            <if test="firstDate != null  and firstDate != ''"> and  first_Date = #{firstDate}</if>
+            <if test="getWay != null  and getWay != ''"> and get_way = #{getWay}</if>
+            <if test="wayScope != null  and wayScope != ''"> and way_scope = #{wayScope}</if>
+            <if test="registNum != null  and registNum != ''"> and regist_num = #{registNum}</if>
+            <if test="num != null  and num != ''"> and SUBSTRING(num,4,LENGTH(num)-3) = #{num}</if>
+            <if test="cardDate != null  and cardDate != ''"> and card_date = #{cardDate}</if>
+            <if test="createUser != null  and createUser != ''"> and create_user = #{createUser}</if>
+            <if test="createDate != null "> and DATE_FORMAT(create_date, '%Y-%m-%d') = #{createDate}</if>
+        </where>
+    </select>
+    
+    <select id="selectZscqById" parameterType="Long" resultMap="ZscqResult">
+        <include refid="selectZscqVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertZscq" parameterType="Zscq" useGeneratedKeys="true" keyProperty="id">
+        insert into zscq
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+<!--            <if test="name != null and name != ''">name,</if>-->
+            <if test="photo != null and photo != ''">photo,</if>
+            <if test="cardId != null">card_id,</if>
+            <if test="softwareName != null">software_name,</if>
+            <if test="companyName != null">company_name,</if>
+            <if test="startDate != null">start_date,</if>
+            <if test="firstDate != null">first_date,</if>
+            <if test="getWay != null">get_way,</if>
+            <if test="wayScope != null">way_scope,</if>
+            <if test="registNum != null">regist_num,</if>
+            <if test="num != null">num,</if>
+            <if test="cardDate != null">card_date,</if>
+            <if test="createUser != null">create_user,</if>
+            create_date
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+<!--            <if test="name != null and name != ''">#{name},</if>-->
+            <if test="photo != null and photo != ''">#{photo},</if>
+            <if test="cardId != null">#{cardId},</if>
+            <if test="softwareName != null">#{softwareName},</if>
+            <if test="companyName != null">#{companyName},</if>
+            <if test="startDate != null">#{startDate},</if>
+            <if test="firstDate != null">#{firstDate},</if>
+            <if test="getWay != null">#{getWay},</if>
+            <if test="wayScope != null">#{wayScope},</if>
+            <if test="registNum != null">#{registNum},</if>
+            <if test="num != null">#{num},</if>
+            <if test="cardDate != null">#{cardDate},</if>
+            <if test="createUser != null">#{createUser},</if>
+            now()
+         </trim>
+    </insert>
+
+    <update id="updateZscq" parameterType="Zscq">
+        update zscq
+        <trim prefix="SET" suffixOverrides=",">
+<!--            <if test="name != null and name != ''">name = #{name},</if>-->
+            <if test="photo != null and photo != ''">photo = #{photo},</if>
+            <if test="cardId != null">card_id = #{cardId},</if>
+            <if test="softwareName != null">software_name = #{softwareName},</if>
+            <if test="companyName != null">company_name = #{companyName},</if>
+            <if test="startDate != null">start_date = #{startDate},</if>
+            <if test="firstDate != null">first_date = #{firstDate},</if>
+            <if test="getWay != null">get_way = #{getWay},</if>
+            <if test="wayScope != null">way_scope = #{wayScope},</if>
+            <if test="registNum != null">regist_num = #{registNum},</if>
+            <if test="num != null">num = #{num},</if>
+            <if test="cardDate != null">card_date = #{cardDate},</if>
+            <if test="createUser != null">create_user = #{createUser},</if>
+            <if test="createDate != null">create_date = #{createDate},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteZscqById" parameterType="Long">
+        delete from zscq where id = #{id}
+    </delete>
+
+    <delete id="deleteZscqByIds" parameterType="String">
+        delete from zscq where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="data" resultType="HashMap">
+        select card_date cardDate,count(1) num from zscq group by card_date
+    </select>
+</mapper>
